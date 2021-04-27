@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element label="Technical Design Document" max_length="40" name="x_9736_writenow_technical_design_document" sizeclass="1" type="collection">
+        <element label="Description" max_length="4000" name="description" type="string"/>
+        <element choice="3" default="basic" label="Mode" max_length="40" name="mode" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Basic" sequence="10" value="basic"/>
+                <element inactive_on_update="false" label="Advanced" sequence="20" value="advanced"/>
+            </choice>
+        </element>
+        <element display="true" label="Name" max_length="40" name="name" type="string"/>
+        <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element label="Tables" max_length="4000" name="tables" reference="sys_db_object" type="glide_list"/>
+        <element choice="1" label="Type" max_length="40" name="type" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Global app" sequence="10" value="global_app"/>
+                <element inactive_on_update="false" label="Scoped app" sequence="20" value="scoped_app"/>
+                <element inactive_on_update="false" label="Catalog item" sequence="30" value="catalog_item"/>
+            </choice>
+        </element>
+    </element>
+</database>

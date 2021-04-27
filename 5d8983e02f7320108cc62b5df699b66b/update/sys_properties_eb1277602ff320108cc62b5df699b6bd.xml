@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_properties">
+    <sys_properties action="INSERT_OR_UPDATE">
+        <choices/>
+        <description/>
+        <ignore_cache>true</ignore_cache>
+        <is_private>false</is_private>
+        <name>x_9736_writenow.default.data.tables</name>
+        <read_roles/>
+        <suffix>default.data.tables</suffix>
+        <sys_class_name>sys_properties</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2021-04-25 20:12:45</sys_created_on>
+        <sys_id>eb1277602ff320108cc62b5df699b6bd</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>x_9736_writenow.default.data.tables</sys_name>
+        <sys_package display_value="WriteNow" source="x_9736_writenow">5d8983e02f7320108cc62b5df699b66b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="WriteNow">5d8983e02f7320108cc62b5df699b66b</sys_scope>
+        <sys_update_name>sys_properties_eb1277602ff320108cc62b5df699b6bd</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2021-04-25 20:14:19</sys_updated_on>
+        <type>string</type>
+        <value>sys_dictionary</value>
+        <write_roles/>
+    </sys_properties>
+    <sys_translated_text action="delete_multiple" query="documentkey=eb1277602ff320108cc62b5df699b6bd"/>
+</record_update>

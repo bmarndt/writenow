@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_hub_action_type_definition">
+    <sys_hub_action_type_definition action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <acls/>
+        <action_template/>
+        <active>true</active>
+        <annotation/>
+        <callable_by_client_api>false</callable_by_client_api>
+        <category/>
+        <copied_from/>
+        <copied_from_name/>
+        <description/>
+        <ih_action>false</ih_action>
+        <internal_name>build_document_html</internal_name>
+        <label_cache>[]</label_cache>
+        <latest_snapshot/>
+        <master_snapshot/>
+        <name>Build Document HTML</name>
+        <natlang/>
+        <outputs/>
+        <state>draft</state>
+        <sys_class_name>sys_hub_action_type_definition</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2021-04-25 21:04:50</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>047ef3682ff320108cc62b5df699b65e</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Build Document HTML</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="WriteNow" source="x_9736_writenow">5d8983e02f7320108cc62b5df699b66b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="WriteNow">5d8983e02f7320108cc62b5df699b66b</sys_scope>
+        <sys_update_name>sys_hub_action_type_definition_047ef3682ff320108cc62b5df699b65e</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2021-04-25 21:15:09</sys_updated_on>
+        <system_level>false</system_level>
+        <type/>
+    </sys_hub_action_type_definition>
+    <sys_translated_text action="delete_multiple" query="documentkey=047ef3682ff320108cc62b5df699b65e"/>
+    <sys_variable_value action="delete_multiple" query="document_key=047ef3682ff320108cc62b5df699b65e"/>
+    <sys_hub_step_instance action="delete_multiple" query="action=047ef3682ff320108cc62b5df699b65e^sys_idNOT INc7c084f82ff320108cc62b5df699b615"/>
+    <sys_hub_step_instance action="INSERT_OR_UPDATE">
+        <action display_value="Build Document HTML">047ef3682ff320108cc62b5df699b65e</action>
+        <cid>48efc246-95e6-4600-a9a4-b18396fad22b</cid>
+        <extended_inputs/>
+        <extended_outputs/>
+        <icon/>
+        <inputs/>
+        <label>Script step</label>
+        <order>1</order>
+        <outputs/>
+        <section/>
+        <step_type display_value="Script">106afb6647032200b4fad7527c9a71e7</step_type>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2021-04-25 21:15:09</sys_created_on>
+        <sys_id>c7c084f82ff320108cc62b5df699b615</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope display_value="WriteNow">5d8983e02f7320108cc62b5df699b66b</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2021-04-25 21:15:09</sys_updated_on>
+    </sys_hub_step_instance>
+    <sys_variable_value action="delete_multiple" query="document_key=c7c084f82ff320108cc62b5df699b615"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_step_instance</document>
+        <document_key>c7c084f82ff320108cc62b5df699b615</document_key>
+        <order>600</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2021-04-25 21:15:09</sys_created_on>
+        <sys_id>c7c0407c2ff320108cc62b5df699b630</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2021-04-25 21:15:09</sys_updated_on>
+        <value>(function execute(inputs, outputs) {
+var srcTable = 'incident';
+  var trgtTable = 'sys_dictionary';
+  var text = '&lt;table&gt;';
+  
+  var gr = new GlideRecord(trgtTable);
+  gr.addQuery('name', srcTable);
+  gr.query();
+  while(gr.next()){
+    
+    
+})(inputs, outputs);
+</value>
+        <variable display_value="Script">71aa7f6647032200b4fad7527c9a719b</variable>
+    </sys_variable_value>
+</record_update>
