@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="m2m_app_config_theme">
+    <m2m_app_config_theme action="INSERT_OR_UPDATE">
+        <applicability/>
+        <order>0</order>
+        <sys_class_name>m2m_app_config_theme</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2021-05-01 13:02:18</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_id>6d894d6edc3320104585eded64215c27</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_overrides/>
+        <sys_package display_value="WriteNow" source="x_9736_writenow">5d8983e02f7320108cc62b5df699b66b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="WriteNow">5d8983e02f7320108cc62b5df699b66b</sys_scope>
+        <sys_update_name>m2m_app_config_theme_6d894d6edc3320104585eded64215c27</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2021-05-01 13:02:18</sys_updated_on>
+        <theme display_value="Starter Workspace Theme">69894d6e02332010e1b47a196b68d628</theme>
+        <ux_app_configuration display_value="WriteNow Config">ad894d6e2c3320102815e21c0e2a7e27</ux_app_configuration>
+    </m2m_app_config_theme>
+</record_update>

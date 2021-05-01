@@ -2,7 +2,6 @@
     <element label="Technical Design Document Version" max_length="40" name="x_9736_writenow_technical_design_document_version" sizeclass="1" type="collection">
         <element label="Document" max_length="32" name="document" reference="x_9736_writenow_technical_design_document" type="reference"/>
         <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
-        <element label="Text" max_length="8000" name="text" type="html"/>
         <index name="index">
             <element name="document"/>
         </index>
