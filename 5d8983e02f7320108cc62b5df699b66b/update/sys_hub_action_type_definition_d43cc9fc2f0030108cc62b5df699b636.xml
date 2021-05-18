@@ -25,7 +25,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>d43cc9fc2f0030108cc62b5df699b636</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>3</sys_mod_count>
         <sys_name>PDF creator - Test Harness</sys_name>
         <sys_overrides/>
         <sys_package display_value="WriteNow" source="x_9736_writenow">5d8983e02f7320108cc62b5df699b66b</sys_package>
@@ -33,7 +33,7 @@
         <sys_scope display_value="WriteNow">5d8983e02f7320108cc62b5df699b66b</sys_scope>
         <sys_update_name>sys_hub_action_type_definition_d43cc9fc2f0030108cc62b5df699b636</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-05-08 13:24:54</sys_updated_on>
+        <sys_updated_on>2021-05-08 13:47:30</sys_updated_on>
         <system_level>false</system_level>
         <type/>
     </sys_hub_action_type_definition>
@@ -56,10 +56,10 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2021-05-08 13:00:22</sys_created_on>
         <sys_id>c63cc9fc2f0030108cc62b5df699b6c5</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>3</sys_mod_count>
         <sys_scope display_value="WriteNow">5d8983e02f7320108cc62b5df699b66b</sys_scope>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-05-08 13:24:54</sys_updated_on>
+        <sys_updated_on>2021-05-08 13:47:30</sys_updated_on>
     </sys_hub_step_instance>
     <sys_variable_value action="delete_multiple" query="document_key=c63cc9fc2f0030108cc62b5df699b6c5"/>
     <sys_variable_value action="INSERT_OR_UPDATE">
@@ -70,9 +70,9 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2021-05-08 13:00:27</sys_created_on>
         <sys_id>573cc9fc2f0030108cc62b5df699b6fa</sys_id>
-        <sys_mod_count>1</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-05-08 13:24:54</sys_updated_on>
+        <sys_updated_on>2021-05-08 13:47:30</sys_updated_on>
         <value>(function execute(inputs, outputs) {
 
   /*
@@ -90,7 +90,7 @@
   var wnutils = new WriteNowUtils();
   var sourceTable = 'sys_dictionary';
   var sourceQuery = 'name=' + inputs.table_name + '^internal_type!=collection^ORinternal_type=NULL^active=true';
-  var sourceColumns = ['column_label, element'];
+  var sourceColumns = ['column_label', 'element'];
   var sys_dictionary_tbl = wnutils.buildTable(sourceTable, sourceQuery, sourceColumns);
   document.addTable(sys_dictionary_tbl);
   document.saveAsAttachment('x_9736_writenow_technical_design_document_version', inputs.version_id.sys_id, inputs.document_title + '_' + inputs.version_id.number + '.pdf');

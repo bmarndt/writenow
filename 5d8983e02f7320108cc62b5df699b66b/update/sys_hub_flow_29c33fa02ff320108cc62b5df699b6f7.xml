@@ -12,7 +12,7 @@
         <description/>
         <internal_name>new_document_version</internal_name>
         <label_cache>[{"name":"Created_1.current.document.table.name","label":"Trigger➛Technical Design Document Version Record➛Document➛Table➛Name","reference":"","reference_display":"Name","type":"string","base_type":"string","parent_table_name":"sys_db_object","column_name":"name"},{"name":"Created_1.current.document.tables","label":"Trigger➛Technical Design Document Version Record➛Document➛Tables","reference":"sys_db_object","reference_display":"Table","type":"glide_list","base_type":"glide_list","parent_table_name":"x_9736_writenow_technical_design_document","column_name":"tables"},{"name":"Created_1.current.document.name","label":"Trigger➛Technical Design Document Version Record➛Document➛Name","reference":"","reference_display":"Name","type":"string","base_type":"string","parent_table_name":"x_9736_writenow_technical_design_document","column_name":"name"},{"name":"flow_variable.text","label":"Flow Variables➛Text","reference":"","reference_display":"","type":"string","base_type":"string","attributes":{"sourceUiUniqueId":"","sourceType":"","sourceId":"","uiUniqueId":"5e2532db-2449-4eac-88f2-cd2ccd2a58a5"}},{"name":"Created_1.current","label":"Trigger➛Technical Design Document Version Record","reference":"x_9736_writenow_technical_design_document_version","reference_display":"Technical Design Document Version","type":"reference","base_type":"reference","attributes":{}},{"name":"eb072495-0c08-426c-bdfc-e6f51d18b0b6.table_name","label":"1➛Technical Design Document Version Table","reference":"x_9736_writenow_technical_design_document_version","reference_display":"Technical Design Document Version","type":"table_name","base_type":"table_name","attributes":{"element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"eb072495-0c08-426c-bdfc-e6f51d18b0b6.record","label":"1➛Technical Design Document Version Record","reference":"x_9736_writenow_technical_design_document_version","reference_display":"Technical Design Document Version","type":"reference","base_type":"reference","attributes":{"element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"f56a12ad-da00-4f57-a891-926d4e679f64.item","label":"2➛Dictionary Entry Record","reference":"sys_dictionary","reference_display":"Dictionary Entry","type":"reference","base_type":"reference","attributes":{"pills_draggable_inside_block":"true","pills_draggable_outside_block":"false"}},{"name":"fd902410-a893-4f20-ba86-54b74bd3d251.Records","label":"1➛Dictionary Entry Records","reference":"sys_dictionary","reference_display":"Dictionary Entry","type":"records","base_type":"records","attributes":{"element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"fd902410-a893-4f20-ba86-54b74bd3d251.Table","label":"1➛Dictionary Entry Table","reference":"sys_dictionary","reference_display":"Dictionary Entry","type":"table_name","base_type":"table_name","attributes":{"element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"fd902410-a893-4f20-ba86-54b74bd3d251.Count","label":"1➛Count","reference_display":"Count","type":"integer","base_type":"integer","attributes":{"element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"f56a12ad-da00-4f57-a891-926d4e679f64.item.element","label":"2➛Dictionary Entry Record➛Column name","reference":"","reference_display":"Column name","type":"string","base_type":"string","parent_table_name":"sys_dictionary","column_name":"element"},{"name":"f56a12ad-da00-4f57-a891-926d4e679f64.item.column_label","label":"2➛Dictionary Entry Record➛Column label","reference":"","reference_display":"Column label","type":"documentation_field","base_type":"documentation_field","parent_table_name":"sys_dictionary","column_name":"column_label"}]</label_cache>
-        <latest_snapshot>0f1605aa2f3320108cc62b5df699b652</latest_snapshot>
+        <latest_snapshot>250116772f0030108cc62b5df699b60e</latest_snapshot>
         <master_snapshot>0f1605aa2f3320108cc62b5df699b652</master_snapshot>
         <name>New document version</name>
         <natlang/>
@@ -333,10 +333,10 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2021-04-27 19:49:57</sys_created_on>
         <sys_id>62700e592f7320108cc62b5df699b6bc</sys_id>
-        <sys_mod_count>14</sys_mod_count>
+        <sys_mod_count>16</sys_mod_count>
         <sys_scope display_value="WriteNow">5d8983e02f7320108cc62b5df699b66b</sys_scope>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-05-01 12:52:22</sys_updated_on>
+        <sys_updated_on>2021-05-18 01:42:46</sys_updated_on>
         <ui_id>e2d178e9-174e-4c42-a968-432dab6b808f</ui_id>
     </sys_hub_action_instance>
     <sys_variable_value action="delete_multiple" query="document_key=62700e592f7320108cc62b5df699b6bc"/>
@@ -546,7 +546,7 @@
         <binding_strategy>com.snc.process_flow.engine.binding.OncePerRecord</binding_strategy>
         <plan>{"persistor":{"@class":".ChunkingPlanPersistor","table":"sys_flow_trigger_plan","id":"bf1605aa2f3320108cc62b5df699b6bc","name":"plan"}}</plan>
         <plan_id>29c33fa02ff320108cc62b5df699b6f7</plan_id>
-        <snapshot>0f1605aa2f3320108cc62b5df699b652</snapshot>
+        <snapshot>250116772f0030108cc62b5df699b60e</snapshot>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2021-05-01 12:47:23</sys_created_on>
         <sys_domain>global</sys_domain>
