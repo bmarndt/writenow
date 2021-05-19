@@ -13,7 +13,7 @@
         <ih_action>false</ih_action>
         <internal_name>build_document_html</internal_name>
         <label_cache>[{"name":"{{action.doctitle}}","label":"action➛docTitle","type":"action","ref":""},{"name":"{{action.document_title}}","label":"action➛Document title","type":"action","ref":""},{"name":"{{action.table_name}}","label":"action➛Table name","type":"action","ref":""},{"name":"{{action.document_version_id}}","label":"action➛Document version ID","type":"action","ref":""},{"name":"{{action.document_version_record}}","label":"action➛Document version record","type":"action","ref":""},{"name":"{{action.version_id}}","label":"action➛Version ID","type":"action","ref":""},{"name":"{{action.version_number}}","label":"action➛Version number","type":"action","ref":""}]</label_cache>
-        <latest_snapshot>221399662f7320108cc62b5df699b695</latest_snapshot>
+        <latest_snapshot>75ebdf0c2f1030108cc62b5df699b625</latest_snapshot>
         <master_snapshot>8a0046592f7320108cc62b5df699b6d8</master_snapshot>
         <name>Create PDF</name>
         <natlang/>
@@ -25,7 +25,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>047ef3682ff320108cc62b5df699b65e</sys_id>
-        <sys_mod_count>42</sys_mod_count>
+        <sys_mod_count>49</sys_mod_count>
         <sys_name>Create PDF</sys_name>
         <sys_overrides/>
         <sys_package display_value="WriteNow" source="x_9736_writenow">5d8983e02f7320108cc62b5df699b66b</sys_package>
@@ -33,7 +33,7 @@
         <sys_scope display_value="WriteNow">5d8983e02f7320108cc62b5df699b66b</sys_scope>
         <sys_update_name>sys_hub_action_type_definition_047ef3682ff320108cc62b5df699b65e</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-05-01 13:44:06</sys_updated_on>
+        <sys_updated_on>2021-05-19 01:48:23</sys_updated_on>
         <system_level>false</system_level>
         <type/>
     </sys_hub_action_type_definition>
@@ -56,10 +56,10 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2021-04-25 21:15:09</sys_created_on>
         <sys_id>c7c084f82ff320108cc62b5df699b615</sys_id>
-        <sys_mod_count>23</sys_mod_count>
+        <sys_mod_count>26</sys_mod_count>
         <sys_scope display_value="WriteNow">5d8983e02f7320108cc62b5df699b66b</sys_scope>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-05-01 13:29:58</sys_updated_on>
+        <sys_updated_on>2021-05-19 01:48:17</sys_updated_on>
     </sys_hub_step_instance>
     <sys_variable_value action="delete_multiple" query="document_key=c7c084f82ff320108cc62b5df699b615"/>
     <sys_variable_value action="INSERT_OR_UPDATE">
@@ -84,9 +84,9 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2021-04-25 21:15:09</sys_created_on>
         <sys_id>c7c0407c2ff320108cc62b5df699b630</sys_id>
-        <sys_mod_count>20</sys_mod_count>
+        <sys_mod_count>23</sys_mod_count>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-05-01 13:29:58</sys_updated_on>
+        <sys_updated_on>2021-05-19 01:48:17</sys_updated_on>
         <value>(function execute(inputs, outputs) {
 
   /*
@@ -101,9 +101,38 @@
   var secTitle1 = new sn_pdfgeneratorutils.Paragraph("Dictionary Entries");
   document.addParagraph(secTitle1);
 
-  var wnutils = new WriteNowUtils();
-  var sys_dictionary_tbl = wnutils.buildDictionary(inputs.table_name);
+  var dictionary = new WriteNowUtils();
+  var sys_dictionary_tbl = dictionary.buildDictionary(inputs.table_name);
   document.addTable(sys_dictionary_tbl);
+
+  var secTitle2 = new sn_pdfgeneratorutils.Paragraph("Business Rules");
+  document.addParagraph(secTitle2);
+
+  var businessRules = new WriteNowUtils();
+  var sys_business_rules_tbl = businessRules.buildBusinessRules(inputs.table_name);
+  document.addTable(sys_business_rules_tbl);  
+
+  var secTitle3 = new sn_pdfgeneratorutils.Paragraph("Client Scripts");
+  document.addParagraph(secTitle3);
+
+  var clientScripts = new WriteNowUtils();
+  var sys_client_scripts_tbl = clientScripts.buildClientScripts(inputs.table_name);
+  document.addTable(sys_client_scripts_tbl);  
+
+  var secTitle4 = new sn_pdfgeneratorutils.Paragraph("UI Policies");
+  document.addParagraph(secTitle4);
+
+  var UIpolicies = new WriteNowUtils();
+  var sys_ui_policies_tbl = UIpolicies.buildUIpolicies(inputs.table_name);
+  document.addTable(sys_ui_policies_tbl);
+
+  var secTitle5 = new sn_pdfgeneratorutils.Paragraph("UI Actions");
+  document.addParagraph(secTitle5);
+
+  var UIactions = new WriteNowUtils();
+  var sys_ui_actions_tbl = UIactions.buildUIactions(inputs.table_name);
+  document.addTable(sys_ui_actions_tbl);
+
   document.saveAsAttachment('x_9736_writenow_technical_design_document_version', inputs.version_id.sys_id, inputs.document_title + '_' + inputs.version_id.number + '.pdf');
 
 })(inputs, outputs);
@@ -733,17 +762,17 @@
     <sys_hub_action_plan action="INSERT_OR_UPDATE">
         <action_id display_value="Create PDF">047ef3682ff320108cc62b5df699b65e</action_id>
         <plan>{"persistor":{"@class":".ChunkingPlanPersistor","table":"sys_hub_action_plan","id":"430086592f7320108cc62b5df699b67e","name":"plan"}}</plan>
-        <snapshot>221399662f7320108cc62b5df699b695</snapshot>
+        <snapshot>75ebdf0c2f1030108cc62b5df699b625</snapshot>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2021-04-27 19:48:05</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>430086592f7320108cc62b5df699b67e</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>3</sys_mod_count>
         <sys_overrides/>
         <sys_scope/>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-05-01 13:44:07</sys_updated_on>
+        <sys_updated_on>2021-05-19 01:48:24</sys_updated_on>
     </sys_hub_action_plan>
     <sys_hub_action_type_snapshot action="INSERT_OR_UPDATE">
         <access>public</access>
@@ -799,10 +828,10 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2021-04-27 19:48:01</sys_created_on>
         <sys_id>4a0086592f7320108cc62b5df699b60a</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>4</sys_mod_count>
         <sys_scope display_value="WriteNow">5d8983e02f7320108cc62b5df699b66b</sys_scope>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-05-01 13:44:06</sys_updated_on>
+        <sys_updated_on>2021-05-19 01:48:22</sys_updated_on>
     </sys_hub_step_instance>
     <sys_variable_value action="delete_multiple" query="document_key=4a0086592f7320108cc62b5df699b60a"/>
     <sys_variable_value action="INSERT_OR_UPDATE">
@@ -813,9 +842,9 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2021-04-27 19:48:03</sys_created_on>
         <sys_id>3a0086592f7320108cc62b5df699b648</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>3</sys_mod_count>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-05-01 13:44:06</sys_updated_on>
+        <sys_updated_on>2021-05-19 01:48:23</sys_updated_on>
         <value>(function execute(inputs, outputs) {
 
   /*
@@ -830,9 +859,38 @@
   var secTitle1 = new sn_pdfgeneratorutils.Paragraph("Dictionary Entries");
   document.addParagraph(secTitle1);
 
-  var wnutils = new WriteNowUtils();
-  var sys_dictionary_tbl = wnutils.buildDictionary(inputs.table_name);
+  var dictionary = new WriteNowUtils();
+  var sys_dictionary_tbl = dictionary.buildDictionary(inputs.table_name);
   document.addTable(sys_dictionary_tbl);
+
+  var secTitle2 = new sn_pdfgeneratorutils.Paragraph("Business Rules");
+  document.addParagraph(secTitle2);
+
+  var businessRules = new WriteNowUtils();
+  var sys_business_rules_tbl = businessRules.buildBusinessRules(inputs.table_name);
+  document.addTable(sys_business_rules_tbl);  
+
+  var secTitle3 = new sn_pdfgeneratorutils.Paragraph("Client Scripts");
+  document.addParagraph(secTitle3);
+
+  var clientScripts = new WriteNowUtils();
+  var sys_client_scripts_tbl = clientScripts.buildClientScripts(inputs.table_name);
+  document.addTable(sys_client_scripts_tbl);  
+
+  var secTitle4 = new sn_pdfgeneratorutils.Paragraph("UI Policies");
+  document.addParagraph(secTitle4);
+
+  var UIpolicies = new WriteNowUtils();
+  var sys_ui_policies_tbl = UIpolicies.buildUIpolicies(inputs.table_name);
+  document.addTable(sys_ui_policies_tbl);
+
+  var secTitle5 = new sn_pdfgeneratorutils.Paragraph("UI Actions");
+  document.addParagraph(secTitle5);
+
+  var UIactions = new WriteNowUtils();
+  var sys_ui_actions_tbl = UIactions.buildUIactions(inputs.table_name);
+  document.addTable(sys_ui_actions_tbl);
+
   document.saveAsAttachment('x_9736_writenow_technical_design_document_version', inputs.version_id.sys_id, inputs.document_title + '_' + inputs.version_id.number + '.pdf');
 
 })(inputs, outputs);
