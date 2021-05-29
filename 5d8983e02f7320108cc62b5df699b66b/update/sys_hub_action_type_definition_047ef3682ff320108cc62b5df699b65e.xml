@@ -13,19 +13,19 @@
         <ih_action>false</ih_action>
         <internal_name>build_document_html</internal_name>
         <label_cache>[{"name":"{{action.doctitle}}","label":"action➛docTitle","type":"action","ref":""},{"name":"{{action.document_title}}","label":"action➛Document title","type":"action","ref":""},{"name":"{{action.table_name}}","label":"action➛Table name","type":"action","ref":""},{"name":"{{action.document_version_id}}","label":"action➛Document version ID","type":"action","ref":""},{"name":"{{action.document_version_record}}","label":"action➛Document version record","type":"action","ref":""},{"name":"{{action.version_id}}","label":"action➛Version ID","type":"action","ref":""},{"name":"{{action.version_number}}","label":"action➛Version number","type":"action","ref":""},{"name":"{{action.tables}}","label":"action➛Tables","type":"action","ref":""}]</label_cache>
-        <latest_snapshot>533bfa692f1070108cc62b5df699b6ef</latest_snapshot>
+        <latest_snapshot>8bb1e52b2f5030108cc62b5df699b652</latest_snapshot>
         <master_snapshot>8a0046592f7320108cc62b5df699b6d8</master_snapshot>
         <name>Create PDF</name>
         <natlang/>
         <outputs/>
-        <state>draft</state>
+        <state>published</state>
         <sys_class_name>sys_hub_action_type_definition</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2021-04-25 21:04:50</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>047ef3682ff320108cc62b5df699b65e</sys_id>
-        <sys_mod_count>57</sys_mod_count>
+        <sys_mod_count>69</sys_mod_count>
         <sys_name>Create PDF</sys_name>
         <sys_overrides/>
         <sys_package display_value="WriteNow" source="x_9736_writenow">5d8983e02f7320108cc62b5df699b66b</sys_package>
@@ -33,7 +33,7 @@
         <sys_scope display_value="WriteNow">5d8983e02f7320108cc62b5df699b66b</sys_scope>
         <sys_update_name>sys_hub_action_type_definition_047ef3682ff320108cc62b5df699b65e</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-05-24 01:54:04</sys_updated_on>
+        <sys_updated_on>2021-05-29 13:53:22</sys_updated_on>
         <system_level>false</system_level>
         <type/>
     </sys_hub_action_type_definition>
@@ -56,10 +56,10 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2021-04-25 21:15:09</sys_created_on>
         <sys_id>c7c084f82ff320108cc62b5df699b615</sys_id>
-        <sys_mod_count>28</sys_mod_count>
+        <sys_mod_count>31</sys_mod_count>
         <sys_scope display_value="WriteNow">5d8983e02f7320108cc62b5df699b66b</sys_scope>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-05-24 01:54:04</sys_updated_on>
+        <sys_updated_on>2021-05-29 13:49:18</sys_updated_on>
     </sys_hub_step_instance>
     <sys_variable_value action="delete_multiple" query="document_key=c7c084f82ff320108cc62b5df699b615"/>
     <sys_variable_value action="INSERT_OR_UPDATE">
@@ -84,9 +84,9 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2021-04-25 21:15:09</sys_created_on>
         <sys_id>c7c0407c2ff320108cc62b5df699b630</sys_id>
-        <sys_mod_count>25</sys_mod_count>
+        <sys_mod_count>28</sys_mod_count>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-05-24 01:54:04</sys_updated_on>
+        <sys_updated_on>2021-05-29 13:49:18</sys_updated_on>
         <value>(function execute(inputs, outputs) {
 
   /*
@@ -100,6 +100,7 @@
   while (grTables.next()) {
     tableNames.push(grTables.getValue('name'));
   }
+  tableNames.sort();
 
   var pageSize = new sn_pdfgeneratorutils.PdfPage("LETTER");
   var document = new sn_pdfgeneratorutils.Document.createDocument(pageSize);
@@ -110,46 +111,102 @@
   var secTitle1 = new sn_pdfgeneratorutils.Paragraph("Dictionary Entries");
   document.addParagraph(secTitle1);
 
-  var dictionary = new WriteNowUtils();
+  var i;
+  for (i = 0; i &lt; tableNames.length; i++) {
+    var tableTitle = new sn_pdfgeneratorutils.Paragraph(tableNames[i].toString());
+    document.addParagraph(tableTitle);
+
+    var contentBlock = new WriteNowUtils();
+    var sys_dictionary_tbl = contentBlock.buildDictionary(tableNames[i].toString());
+    document.addTable(sys_dictionary_tbl);
+  }
+
+  /*var dictionary = new WriteNowUtils();
   var sys_dictionary_tbl = dictionary.buildDictionary(inputs.table_name);
-  document.addTable(sys_dictionary_tbl);
+  document.addTable(sys_dictionary_tbl);*/
 
   var secTitle2 = new sn_pdfgeneratorutils.Paragraph("Business Rules");
   document.addParagraph(secTitle2);
 
-  var businessRules = new WriteNowUtils();
+  for (i = 0; i &lt; tableNames.length; i++) {
+    var tableTitle = new sn_pdfgeneratorutils.Paragraph(tableNames[i].toString());
+    document.addParagraph(tableTitle);
+
+    var contentBlock = new WriteNowUtils();
+    var sys_dictionary_tbl = contentBlock.buildBusinessRules(tableNames[i].toString());
+    document.addTable(sys_dictionary_tbl);
+  }
+
+  /*var businessRules = new WriteNowUtils();
   var sys_business_rules_tbl = businessRules.buildBusinessRules(inputs.table_name);
-  document.addTable(sys_business_rules_tbl);  
+  document.addTable(sys_business_rules_tbl);*/
 
   var secTitle3 = new sn_pdfgeneratorutils.Paragraph("Client Scripts");
   document.addParagraph(secTitle3);
 
-  var clientScripts = new WriteNowUtils();
+  for (i = 0; i &lt; tableNames.length; i++) {
+    var tableTitle = new sn_pdfgeneratorutils.Paragraph(tableNames[i].toString());
+    document.addParagraph(tableTitle);
+
+    var contentBlock = new WriteNowUtils();
+    var sys_dictionary_tbl = contentBlock.buildClientScripts(tableNames[i].toString());
+    document.addTable(sys_dictionary_tbl);
+  }
+
+  /*var clientScripts = new WriteNowUtils();
   var sys_client_scripts_tbl = clientScripts.buildClientScripts(inputs.table_name);
-  document.addTable(sys_client_scripts_tbl);  
+  document.addTable(sys_client_scripts_tbl);*/
 
   var secTitle4 = new sn_pdfgeneratorutils.Paragraph("UI Policies");
   document.addParagraph(secTitle4);
 
-  var UIpolicies = new WriteNowUtils();
+  for (i = 0; i &lt; tableNames.length; i++) {
+    var tableTitle = new sn_pdfgeneratorutils.Paragraph(tableNames[i].toString());
+    document.addParagraph(tableTitle);
+
+    var contentBlock = new WriteNowUtils();
+    var sys_dictionary_tbl = contentBlock.buildUIpolicies(tableNames[i].toString());
+    document.addTable(sys_dictionary_tbl);
+  }  
+
+  /*var UIpolicies = new WriteNowUtils();
   var sys_ui_policies_tbl = UIpolicies.buildUIpolicies(inputs.table_name);
-  document.addTable(sys_ui_policies_tbl);
+  document.addTable(sys_ui_policies_tbl);*/
 
   var secTitle5 = new sn_pdfgeneratorutils.Paragraph("UI Actions");
   document.addParagraph(secTitle5);
 
-  var UIactions = new WriteNowUtils();
+  for (i = 0; i &lt; tableNames.length; i++) {
+    var tableTitle = new sn_pdfgeneratorutils.Paragraph(tableNames[i].toString());
+    document.addParagraph(tableTitle);
+
+    var contentBlock = new WriteNowUtils();
+    var sys_dictionary_tbl = contentBlock.buildUIactions(tableNames[i].toString());
+    document.addTable(sys_dictionary_tbl);
+  }  
+
+  /*var UIactions = new WriteNowUtils();
   var sys_ui_actions_tbl = UIactions.buildUIactions(inputs.table_name);
-  document.addTable(sys_ui_actions_tbl);
+  document.addTable(sys_ui_actions_tbl);*/
 
   var secTitle6 = new sn_pdfgeneratorutils.Paragraph("Notifications");
   document.addParagraph(secTitle6);
 
-  var notifications = new WriteNowUtils();
+  for (i = 0; i &lt; tableNames.length; i++) {
+    var tableTitle = new sn_pdfgeneratorutils.Paragraph(tableNames[i].toString());
+    document.addParagraph(tableTitle);
+
+    var contentBlock = new WriteNowUtils();
+    var sys_dictionary_tbl = contentBlock.buildNotifications(tableNames[i].toString());
+    document.addTable(sys_dictionary_tbl);
+  }
+
+  /*var notifications = new WriteNowUtils();
   var sys_notifications_tbl = notifications.buildNotifications(inputs.table_name);
-  document.addTable(sys_notifications_tbl);
+  document.addTable(sys_notifications_tbl);*/
 
   document.saveAsAttachment('x_9736_writenow_technical_design_document_version', inputs.version_id.sys_id, inputs.document_title + '_' + inputs.version_id.number + '.pdf');
+
 
 })(inputs, outputs);
 </value>
@@ -672,7 +729,7 @@
         <hint/>
         <internal_type display_value="String">string</internal_type>
         <label>Tables</label>
-        <mandatory>false</mandatory>
+        <mandatory>true</mandatory>
         <max_length>8000</max_length>
         <model display_value="Create PDF">047ef3682ff320108cc62b5df699b65e</model>
         <model_id>047ef3682ff320108cc62b5df699b65e</model_id>
@@ -697,14 +754,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2021-05-24 01:39:20</sys_created_on>
         <sys_id>46c985712fd470108cc62b5df699b6e4</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>1</sys_mod_count>
         <sys_name/>
         <sys_package/>
         <sys_policy/>
         <sys_scope display_value="WriteNow">5d8983e02f7320108cc62b5df699b66b</sys_scope>
         <sys_update_name/>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-05-24 01:39:20</sys_updated_on>
+        <sys_updated_on>2021-05-29 12:53:52</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>
@@ -834,7 +891,7 @@
         <hint/>
         <internal_type display_value="String">string</internal_type>
         <label>Table name</label>
-        <mandatory>true</mandatory>
+        <mandatory>false</mandatory>
         <max_length>8000</max_length>
         <model display_value="Create PDF">047ef3682ff320108cc62b5df699b65e</model>
         <model_id>047ef3682ff320108cc62b5df699b65e</model_id>
@@ -859,14 +916,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2021-04-27 18:33:34</sys_created_on>
         <sys_id>abfe291d2f3320108cc62b5df699b6ed</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>1</sys_mod_count>
         <sys_name/>
         <sys_package/>
         <sys_policy/>
         <sys_scope display_value="WriteNow">5d8983e02f7320108cc62b5df699b66b</sys_scope>
         <sys_update_name/>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-04-27 18:33:34</sys_updated_on>
+        <sys_updated_on>2021-05-29 13:53:16</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>
@@ -975,17 +1032,17 @@
     <sys_hub_action_plan action="INSERT_OR_UPDATE">
         <action_id display_value="Create PDF">047ef3682ff320108cc62b5df699b65e</action_id>
         <plan>{"persistor":{"@class":".ChunkingPlanPersistor","table":"sys_hub_action_plan","id":"430086592f7320108cc62b5df699b67e","name":"plan"}}</plan>
-        <snapshot>533bfa692f1070108cc62b5df699b6ef</snapshot>
+        <snapshot>8bb1e52b2f5030108cc62b5df699b652</snapshot>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2021-04-27 19:48:05</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>430086592f7320108cc62b5df699b67e</sys_id>
-        <sys_mod_count>4</sys_mod_count>
+        <sys_mod_count>6</sys_mod_count>
         <sys_overrides/>
         <sys_scope/>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-05-23 15:16:34</sys_updated_on>
+        <sys_updated_on>2021-05-29 13:53:23</sys_updated_on>
     </sys_hub_action_plan>
     <sys_hub_action_type_snapshot action="INSERT_OR_UPDATE">
         <access>public</access>
@@ -998,7 +1055,7 @@
         <copied_from_name/>
         <description/>
         <internal_name>create_pdf</internal_name>
-        <label_cache>[{"name":"{{action.doctitle}}","label":"action➛docTitle","type":"action","ref":""},{"name":"{{action.document_title}}","label":"action➛Document title","type":"action","ref":""},{"name":"{{action.table_name}}","label":"action➛Table name","type":"action","ref":""},{"name":"{{action.document_version_id}}","label":"action➛Document version ID","type":"action","ref":""},{"name":"{{action.document_version_record}}","label":"action➛Document version record","type":"action","ref":""},{"name":"{{action.version_id}}","label":"action➛Version ID","type":"action","ref":""},{"name":"{{action.version_number}}","label":"action➛Version number","type":"action","ref":""}]</label_cache>
+        <label_cache>[{"name":"{{action.doctitle}}","label":"action➛docTitle","type":"action","ref":""},{"name":"{{action.document_title}}","label":"action➛Document title","type":"action","ref":""},{"name":"{{action.table_name}}","label":"action➛Table name","type":"action","ref":""},{"name":"{{action.document_version_id}}","label":"action➛Document version ID","type":"action","ref":""},{"name":"{{action.document_version_record}}","label":"action➛Document version record","type":"action","ref":""},{"name":"{{action.version_id}}","label":"action➛Version ID","type":"action","ref":""},{"name":"{{action.version_number}}","label":"action➛Version number","type":"action","ref":""},{"name":"{{action.tables}}","label":"action➛Tables","type":"action","ref":""}]</label_cache>
         <master>true</master>
         <name>Create PDF</name>
         <natlang/>
@@ -1010,7 +1067,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>8a0046592f7320108cc62b5df699b6d8</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>1</sys_mod_count>
         <sys_name/>
         <sys_overrides/>
         <sys_package/>
@@ -1018,7 +1075,7 @@
         <sys_scope display_value="WriteNow">5d8983e02f7320108cc62b5df699b66b</sys_scope>
         <sys_update_name/>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-04-27 19:48:00</sys_updated_on>
+        <sys_updated_on>2021-05-29 13:51:58</sys_updated_on>
         <system_level>false</system_level>
         <type/>
     </sys_hub_action_type_snapshot>
@@ -1041,10 +1098,10 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2021-04-27 19:48:01</sys_created_on>
         <sys_id>4a0086592f7320108cc62b5df699b60a</sys_id>
-        <sys_mod_count>5</sys_mod_count>
+        <sys_mod_count>6</sys_mod_count>
         <sys_scope display_value="WriteNow">5d8983e02f7320108cc62b5df699b66b</sys_scope>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-05-23 15:16:33</sys_updated_on>
+        <sys_updated_on>2021-05-29 13:51:58</sys_updated_on>
     </sys_hub_step_instance>
     <sys_variable_value action="delete_multiple" query="document_key=4a0086592f7320108cc62b5df699b60a"/>
     <sys_variable_value action="INSERT_OR_UPDATE">
@@ -1055,14 +1112,24 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2021-04-27 19:48:03</sys_created_on>
         <sys_id>3a0086592f7320108cc62b5df699b648</sys_id>
-        <sys_mod_count>4</sys_mod_count>
+        <sys_mod_count>5</sys_mod_count>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-05-23 15:16:33</sys_updated_on>
+        <sys_updated_on>2021-05-29 13:51:58</sys_updated_on>
         <value>(function execute(inputs, outputs) {
 
   /*
   This step builds the PDF from the source content and stores it with the document version record
   */
+  var tables = inputs.tables;
+  var tableNames = [];
+  var grTables = new GlideRecord('sys_db_object');
+  grTables.addEncodedQuery('sys_idIN'+tables);
+  grTables.query();
+  while (grTables.next()) {
+    tableNames.push(grTables.getValue('name'));
+  }
+  tableNames.sort();
+
   var pageSize = new sn_pdfgeneratorutils.PdfPage("LETTER");
   var document = new sn_pdfgeneratorutils.Document.createDocument(pageSize);
 
@@ -1072,46 +1139,102 @@
   var secTitle1 = new sn_pdfgeneratorutils.Paragraph("Dictionary Entries");
   document.addParagraph(secTitle1);
 
-  var dictionary = new WriteNowUtils();
+  var i;
+  for (i = 0; i &lt; tableNames.length; i++) {
+    var tableTitle = new sn_pdfgeneratorutils.Paragraph(tableNames[i].toString());
+    document.addParagraph(tableTitle);
+
+    var contentBlock = new WriteNowUtils();
+    var sys_dictionary_tbl = contentBlock.buildDictionary(tableNames[i].toString());
+    document.addTable(sys_dictionary_tbl);
+  }
+
+  /*var dictionary = new WriteNowUtils();
   var sys_dictionary_tbl = dictionary.buildDictionary(inputs.table_name);
-  document.addTable(sys_dictionary_tbl);
+  document.addTable(sys_dictionary_tbl);*/
 
   var secTitle2 = new sn_pdfgeneratorutils.Paragraph("Business Rules");
   document.addParagraph(secTitle2);
 
-  var businessRules = new WriteNowUtils();
+  for (i = 0; i &lt; tableNames.length; i++) {
+    var tableTitle = new sn_pdfgeneratorutils.Paragraph(tableNames[i].toString());
+    document.addParagraph(tableTitle);
+
+    var contentBlock = new WriteNowUtils();
+    var sys_dictionary_tbl = contentBlock.buildBusinessRules(tableNames[i].toString());
+    document.addTable(sys_dictionary_tbl);
+  }
+
+  /*var businessRules = new WriteNowUtils();
   var sys_business_rules_tbl = businessRules.buildBusinessRules(inputs.table_name);
-  document.addTable(sys_business_rules_tbl);  
+  document.addTable(sys_business_rules_tbl);*/
 
   var secTitle3 = new sn_pdfgeneratorutils.Paragraph("Client Scripts");
   document.addParagraph(secTitle3);
 
-  var clientScripts = new WriteNowUtils();
+  for (i = 0; i &lt; tableNames.length; i++) {
+    var tableTitle = new sn_pdfgeneratorutils.Paragraph(tableNames[i].toString());
+    document.addParagraph(tableTitle);
+
+    var contentBlock = new WriteNowUtils();
+    var sys_dictionary_tbl = contentBlock.buildClientScripts(tableNames[i].toString());
+    document.addTable(sys_dictionary_tbl);
+  }
+
+  /*var clientScripts = new WriteNowUtils();
   var sys_client_scripts_tbl = clientScripts.buildClientScripts(inputs.table_name);
-  document.addTable(sys_client_scripts_tbl);  
+  document.addTable(sys_client_scripts_tbl);*/
 
   var secTitle4 = new sn_pdfgeneratorutils.Paragraph("UI Policies");
   document.addParagraph(secTitle4);
 
-  var UIpolicies = new WriteNowUtils();
+  for (i = 0; i &lt; tableNames.length; i++) {
+    var tableTitle = new sn_pdfgeneratorutils.Paragraph(tableNames[i].toString());
+    document.addParagraph(tableTitle);
+
+    var contentBlock = new WriteNowUtils();
+    var sys_dictionary_tbl = contentBlock.buildUIpolicies(tableNames[i].toString());
+    document.addTable(sys_dictionary_tbl);
+  }  
+
+  /*var UIpolicies = new WriteNowUtils();
   var sys_ui_policies_tbl = UIpolicies.buildUIpolicies(inputs.table_name);
-  document.addTable(sys_ui_policies_tbl);
+  document.addTable(sys_ui_policies_tbl);*/
 
   var secTitle5 = new sn_pdfgeneratorutils.Paragraph("UI Actions");
   document.addParagraph(secTitle5);
 
-  var UIactions = new WriteNowUtils();
+  for (i = 0; i &lt; tableNames.length; i++) {
+    var tableTitle = new sn_pdfgeneratorutils.Paragraph(tableNames[i].toString());
+    document.addParagraph(tableTitle);
+
+    var contentBlock = new WriteNowUtils();
+    var sys_dictionary_tbl = contentBlock.buildUIactions(tableNames[i].toString());
+    document.addTable(sys_dictionary_tbl);
+  }  
+
+  /*var UIactions = new WriteNowUtils();
   var sys_ui_actions_tbl = UIactions.buildUIactions(inputs.table_name);
-  document.addTable(sys_ui_actions_tbl);
+  document.addTable(sys_ui_actions_tbl);*/
 
   var secTitle6 = new sn_pdfgeneratorutils.Paragraph("Notifications");
   document.addParagraph(secTitle6);
 
-  var notifications = new WriteNowUtils();
+  for (i = 0; i &lt; tableNames.length; i++) {
+    var tableTitle = new sn_pdfgeneratorutils.Paragraph(tableNames[i].toString());
+    document.addParagraph(tableTitle);
+
+    var contentBlock = new WriteNowUtils();
+    var sys_dictionary_tbl = contentBlock.buildNotifications(tableNames[i].toString());
+    document.addTable(sys_dictionary_tbl);
+  }
+
+  /*var notifications = new WriteNowUtils();
   var sys_notifications_tbl = notifications.buildNotifications(inputs.table_name);
-  document.addTable(sys_notifications_tbl);
+  document.addTable(sys_notifications_tbl);*/
 
   document.saveAsAttachment('x_9736_writenow_technical_design_document_version', inputs.version_id.sys_id, inputs.document_title + '_' + inputs.version_id.number + '.pdf');
+
 
 })(inputs, outputs);
 </value>
@@ -1169,6 +1292,18 @@
         <value/>
     </sys_element_mapping>
     <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>tables</field>
+        <id>4a0086592f7320108cc62b5df699b60a</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2021-05-29 13:51:58</sys_created_on>
+        <sys_id>7261a12b2f5030108cc62b5df699b654</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2021-05-29 13:51:58</sys_updated_on>
+        <table>var__m_sys_hub_step_ext_input_4a0086592f7320108cc62b5df699b60a</table>
+        <value>{{action.tables}}</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
         <field>table_name</field>
         <id>4a0086592f7320108cc62b5df699b60a</id>
         <sys_created_by>admin</sys_created_by>
@@ -1192,7 +1327,7 @@
         <table>var__m_sys_hub_step_ext_input_4a0086592f7320108cc62b5df699b60a</table>
         <value>{{action.version_id}}</value>
     </sys_element_mapping>
-    <sys_hub_step_ext_input action="delete_multiple" query="model=4a0086592f7320108cc62b5df699b60a^sys_idNOT IN6a0086592f7320108cc62b5df699b632,6e0086592f7320108cc62b5df699b62c,da0086592f7320108cc62b5df699b60d"/>
+    <sys_hub_step_ext_input action="delete_multiple" query="model=4a0086592f7320108cc62b5df699b60a^sys_idNOT IN6a0086592f7320108cc62b5df699b632,6e0086592f7320108cc62b5df699b62c,7a61a12b2f5030108cc62b5df699b649,da0086592f7320108cc62b5df699b60d"/>
     <sys_hub_step_ext_input action="INSERT_OR_UPDATE">
         <active>true</active>
         <array>false</array>
@@ -1383,6 +1518,87 @@
         <dynamic_creation_script/>
         <dynamic_default_value/>
         <dynamic_ref_qual/>
+        <element>tables</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="String">string</internal_type>
+        <label>tables</label>
+        <mandatory>true</mandatory>
+        <max_length>8000</max_length>
+        <model display_value="Script step">4a0086592f7320108cc62b5df699b60a</model>
+        <model_id>4a0086592f7320108cc62b5df699b60a</model_id>
+        <model_table>sys_hub_step_instance</model_table>
+        <name>var__m_sys_hub_step_ext_input_4a0086592f7320108cc62b5df699b60a</name>
+        <next_element/>
+        <order>300</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_step_ext_input</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2021-05-29 13:51:58</sys_created_on>
+        <sys_id>7a61a12b2f5030108cc62b5df699b649</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="WriteNow">5d8983e02f7320108cc62b5df699b66b</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2021-05-29 13:51:58</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_step_ext_input>
+    <sys_hub_step_ext_input action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=string,uiTypeLabel=String</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
         <element>document_title</element>
         <element_reference>false</element_reference>
         <foreign_database/>
@@ -1436,7 +1652,7 @@
         <write_roles/>
         <xml_view>false</xml_view>
     </sys_hub_step_ext_input>
-    <sys_hub_action_input action="delete_multiple" query="model=8a0046592f7320108cc62b5df699b6d8^sys_idNOT IN420046592f7320108cc62b5df699b6f4,460046592f7320108cc62b5df699b6db,c20046592f7320108cc62b5df699b6ee"/>
+    <sys_hub_action_input action="delete_multiple" query="model=8a0046592f7320108cc62b5df699b6d8^sys_idNOT IN420046592f7320108cc62b5df699b6f4,460046592f7320108cc62b5df699b6db,c20046592f7320108cc62b5df699b6ee,ea61a12b2f5030108cc62b5df699b635"/>
     <sys_hub_action_input action="INSERT_OR_UPDATE">
         <active>true</active>
         <array>false</array>
@@ -1481,7 +1697,7 @@
         <model_table>sys_hub_action_type_snapshot</model_table>
         <name>var__m_sys_hub_action_input_8a0046592f7320108cc62b5df699b6d8</name>
         <next_element/>
-        <order>3</order>
+        <order>4</order>
         <primary>false</primary>
         <read_only>false</read_only>
         <read_roles/>
@@ -1499,14 +1715,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2021-04-27 19:48:00</sys_created_on>
         <sys_id>420046592f7320108cc62b5df699b6f4</sys_id>
-        <sys_mod_count>1</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name/>
         <sys_package/>
         <sys_policy/>
         <sys_scope display_value="WriteNow">5d8983e02f7320108cc62b5df699b66b</sys_scope>
         <sys_update_name/>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-04-27 19:48:01</sys_updated_on>
+        <sys_updated_on>2021-05-29 13:51:58</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>
@@ -1636,7 +1852,7 @@
         <hint/>
         <internal_type display_value="String">string</internal_type>
         <label>Table name</label>
-        <mandatory>true</mandatory>
+        <mandatory>false</mandatory>
         <max_length>8000</max_length>
         <model display_value="Create PDF">8a0046592f7320108cc62b5df699b6d8</model>
         <model_id>8a0046592f7320108cc62b5df699b6d8</model_id>
@@ -1661,14 +1877,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2021-04-27 19:48:00</sys_created_on>
         <sys_id>c20046592f7320108cc62b5df699b6ee</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>1</sys_mod_count>
         <sys_name/>
         <sys_package/>
         <sys_policy/>
         <sys_scope display_value="WriteNow">5d8983e02f7320108cc62b5df699b66b</sys_scope>
         <sys_update_name/>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-04-27 19:48:00</sys_updated_on>
+        <sys_updated_on>2021-05-29 13:53:21</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>
@@ -1680,7 +1896,88 @@
         <write_roles/>
         <xml_view>false</xml_view>
     </sys_hub_action_input>
-    <sys_documentation action="delete_multiple" query="name=var__m_sys_hub_action_input_8a0046592f7320108cc62b5df699b6d8^sys_idNOT IN0e0046592f7320108cc62b5df699b6ec,8a0046592f7320108cc62b5df699b6f2,8e0086592f7320108cc62b5df699b607"/>
+    <sys_hub_action_input action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=string,uiTypeLabel=String,uiUniqueId=db36eed3-6169-4800-8ef4-96330fe42484</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>tables</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="String">string</internal_type>
+        <label>Tables</label>
+        <mandatory>true</mandatory>
+        <max_length>8000</max_length>
+        <model display_value="Create PDF">8a0046592f7320108cc62b5df699b6d8</model>
+        <model_id>8a0046592f7320108cc62b5df699b6d8</model_id>
+        <model_table>sys_hub_action_type_snapshot</model_table>
+        <name>var__m_sys_hub_action_input_8a0046592f7320108cc62b5df699b6d8</name>
+        <next_element/>
+        <order>3</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_action_input</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2021-05-29 13:51:58</sys_created_on>
+        <sys_id>ea61a12b2f5030108cc62b5df699b635</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="WriteNow">5d8983e02f7320108cc62b5df699b66b</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2021-05-29 13:51:58</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_action_input>
+    <sys_documentation action="delete_multiple" query="name=var__m_sys_hub_action_input_8a0046592f7320108cc62b5df699b6d8^sys_idNOT IN0e0046592f7320108cc62b5df699b6ec,3661a12b2f5030108cc62b5df699b63a,8a0046592f7320108cc62b5df699b6f2,8e0086592f7320108cc62b5df699b607"/>
     <sys_documentation action="INSERT_OR_UPDATE">
         <element>document_title</element>
         <help/>
@@ -1701,6 +1998,29 @@
         <sys_update_name/>
         <sys_updated_by>admin</sys_updated_by>
         <sys_updated_on>2021-04-27 19:48:00</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>tables</element>
+        <help/>
+        <hint/>
+        <label>Tables</label>
+        <language>en</language>
+        <name>var__m_sys_hub_action_input_8a0046592f7320108cc62b5df699b6d8</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2021-05-29 13:51:58</sys_created_on>
+        <sys_id>3661a12b2f5030108cc62b5df699b63a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="WriteNow" source="x_9736_writenow">5d8983e02f7320108cc62b5df699b66b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="WriteNow">5d8983e02f7320108cc62b5df699b66b</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2021-05-29 13:51:58</sys_updated_on>
         <url/>
         <url_target/>
     </sys_documentation>
