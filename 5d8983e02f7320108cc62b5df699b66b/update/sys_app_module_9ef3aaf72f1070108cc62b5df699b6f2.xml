@@ -13,7 +13,7 @@
         <mobile_title>Workspace</mobile_title>
         <mobile_view_name>Mobile</mobile_view_name>
         <name/>
-        <order/>
+        <order>100</order>
         <override_menu_roles>false</override_menu_roles>
         <query>/x/9736/writenow/home</query>
         <report/>
@@ -24,7 +24,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>9ef3aaf72f1070108cc62b5df699b6f2</sys_id>
-        <sys_mod_count>1</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>Workspace</sys_name>
         <sys_overrides/>
         <sys_package display_value="WriteNow" source="x_9736_writenow">5d8983e02f7320108cc62b5df699b66b</sys_package>
@@ -32,7 +32,7 @@
         <sys_scope display_value="WriteNow">5d8983e02f7320108cc62b5df699b66b</sys_scope>
         <sys_update_name>sys_app_module_9ef3aaf72f1070108cc62b5df699b6f2</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-05-30 13:24:19</sys_updated_on>
+        <sys_updated_on>2021-05-31 14:21:13</sys_updated_on>
         <timeline_page/>
         <title>Workspace</title>
         <uncancelable>false</uncancelable>
